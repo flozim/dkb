@@ -1,5 +1,5 @@
 <template>
-  <div class="dkb-card" :style="{'background-color': card.color}">
+  <div class="dkb-card" :style="{'background-color': card.color, 'border': selected ? '2px solid red' : ''}">
     <div class="dkb-card--description">{{ props.card.description }}</div>
     <div class="dkb-card--id">Card Id: {{ props.card.id }}</div>
   </div>
@@ -10,11 +10,12 @@ import Card from "../model/Card";
 
 const props = defineProps({
   card: { type: Card, required: true },
+  selected: {type: Boolean, default: false}
 })
 
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 .dkb-card
   width: 20rem
   min-height: 10rem

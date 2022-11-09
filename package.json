@@ -16,7 +16,10 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "vue": "^3.2.37"
+    "cross-fetch": "^3.1.5",
+    "msw": "^0.48.0",
+    "vue": "^3.2.37",
+    "vue-axios": "^3.5.2"
   },
   "devDependencies": {
     "@histoire/plugin-vue": "^0.10.7",
@@ -37,5 +40,8 @@
     "vite": "^3.1.0",
     "vitest": "^0.23.4",
     "vue-tsc": "^0.40.4"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
