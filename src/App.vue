@@ -6,7 +6,7 @@
                class="app--dkb-card"
                :selected="selectedCardId === card.id"
                :card="card"
-               @click="selectedCardId=card.id"
+               @click="selectNewCardId(card.id)"
       />
     </div>
     <div class="app--transactions-wrapper">
@@ -19,21 +19,39 @@
       </div>
     </div>
 
+    <DKBTransaction
+        class="app--transaction"
+        v-for="transaction in transactionsByCardId[selectedCardId]"
+        :color="currentTransactionColor"
+        :transaction="transaction"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import DKBCard from "./components/DKBCard.vue";
+import DKBCard from "./components/DKBCard.vue"
+import DKBTransaction from './components/DKBTransaction.vue'
 import useStore from "./composites/store";
 import DKBFilter from "./components/DKBFilter.vue";
 import {ref} from "vue";
 
-const {selectedCardId, transactionsByCardId, shownCards, fetchInitialCards, loadingTransactions} = useStore()
-
+let {selectedCardId, shownCards, fetchInitialCards, loadingTransactions, fetchTransactions, transactionsByCardId} = useStore()
 const selectedAmount = ref('')
+const currentTransactionColor = ref('white')
+
+function selectNewCardId(id: string){
+  selectedCardId.value = id
+  console.log("shownCards.vlaue", shownCards.value)
+  shownCards.value.forEach(card => {
+    if(card.id === selectedCardId.value){
+      currentTransactionColor.value = card.color
+    }
+  })
+
+  fetchTransactions()
+}
 
 fetchInitialCards()
-
 </script>
 
 <style lang="sass" scoped>
@@ -50,4 +68,9 @@ fetchInitialCards()
     margin-top: 4rem
     display: flex
     justify-content: center
+  .app--transaction
+    margin-left: auto
+    margin-right: auto
+    margin-top: 2rem
+    width: 40rem
 </style>
