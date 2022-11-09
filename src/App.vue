@@ -18,10 +18,9 @@
         <!--        TODO: loading spinner-->
       </div>
     </div>
-
     <DKBTransaction
         class="app--transaction"
-        v-for="transaction in transactionsByCardId[selectedCardId]"
+        v-for="transaction in filteredTransactions"
         :color="currentTransactionColor"
         :transaction="transaction"
     />
@@ -33,21 +32,31 @@ import DKBCard from "./components/DKBCard.vue"
 import DKBTransaction from './components/DKBTransaction.vue'
 import useStore from "./composites/store";
 import DKBFilter from "./components/DKBFilter.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
-let {selectedCardId, shownCards, fetchInitialCards, loadingTransactions, fetchTransactions, transactionsByCardId} = useStore()
+let {
+  selectedCardId,
+  shownCards,
+  fetchInitialCards,
+  loadingTransactions,
+  fetchTransactions,
+  transactionsByCardId
+} = useStore()
 const selectedAmount = ref('')
 const currentTransactionColor = ref('white')
 
-function selectNewCardId(id: string){
+const filteredTransactions = computed(() => {
+  return parseInt(selectedAmount.value) < 0 || transactionsByCardId.value[selectedCardId.value].filter(transaction => transaction.amount >= selectedAmount.value);
+})
+
+function selectNewCardId(id: string) {
   selectedCardId.value = id
   console.log("shownCards.vlaue", shownCards.value)
   shownCards.value.forEach(card => {
-    if(card.id === selectedCardId.value){
+    if (card.id === selectedCardId.value) {
       currentTransactionColor.value = card.color
     }
   })
-
   fetchTransactions()
 }
 
@@ -58,16 +67,20 @@ fetchInitialCards()
 .app
   display: inline
   justify-content: center
+
   .app--card-wrapper
     display: flex
     justify-content: center
+
     .app--dkb-card
       margin-left: 5%
       margin-right: 5%
+
   .app--transactions-wrapper
     margin-top: 4rem
     display: flex
     justify-content: center
+
   .app--transaction
     margin-left: auto
     margin-right: auto

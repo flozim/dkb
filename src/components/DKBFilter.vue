@@ -22,6 +22,7 @@ const amount = computed({
     const convertedAmount = parseInt(value)
     console.log("cpnmverted", convertedAmount)
     if(!isNaN(convertedAmount)){
+      invalidAmount.value = false
       emit('update:amount', value);
     }else{
       invalidAmount.value = true
