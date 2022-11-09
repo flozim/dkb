@@ -1,13 +1,19 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <div class="">
-    <HelloWorld msg="Vite + Vue" />
+  <div class="app">
+        <DKBCard class="app--dkb-card" :card="{id:'121212', description: 'Private Card', color: 'lightgrey'}"/>
+        <DKBCard :card="{id:'213123', description: 'Business Card', color: 'lightblue'}"/>
   </div>
 </template>
 
-<style lang="sass" scoped></style>
+<script setup lang="ts">
+import DKBCard from "./components/DKBCard.vue";
+
+</script>
+
+<style lang="sass" scoped>
+.app
+  display: flex
+  justify-content: center
+  .app--dkb-card
+    margin-right: 10%
+</style>
