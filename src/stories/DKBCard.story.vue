@@ -1,9 +1,9 @@
 <template>
   <Story>
-    <Variant>
+    <Variant title="Private light grey">
       <DKBCard :card="privateCard" />
     </Variant>
-    <Variant>
+    <Variant title="Business light blue">
       <DKBCard :card="businessCard" />
     </Variant>
   </Story>
@@ -16,13 +16,13 @@ import Card from "../model/Card";
 const privateCard = new Card({
   id: 'private-card-id',
   description: 'some description for a private card',
-  color: 'grey'
+  color: 'lightgrey'
 })
 
 const businessCard = new Card({
   id: 'business-card-id',
   description: 'some description for a business card',
-  color: 'blue'
+  color: 'lightblue'
 })
 
 </script>
