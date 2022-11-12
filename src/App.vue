@@ -42,11 +42,12 @@ let {
   fetchTransactions,
   transactionsByCardId
 } = useStore()
-const selectedAmount = ref('')
+const selectedAmount = ref('0')
 const currentTransactionColor = ref('white')
 
 const filteredTransactions = computed(() => {
-  return parseInt(selectedAmount.value) < 0 || transactionsByCardId.value[selectedCardId.value].filter(transaction => transaction.amount >= selectedAmount.value);
+  return parseInt(selectedAmount.value) < 0 || transactionsByCardId.value[selectedCardId.value]?.filter(
+      (transaction: { amount: number; }) => transaction.amount >= parseInt(selectedAmount.value));
 })
 
 function selectNewCardId(id: string) {
