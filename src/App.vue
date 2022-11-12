@@ -10,7 +10,7 @@
       />
     </div>
     <div class="app--transactions-wrapper">
-      <DKBFilter v-if="selectedCardId" :amount="selectedAmount" @update:amount="selectedAmount = $event"/>
+      <DKBFilter v-if="selectedCardId" :amount="selectedAmount" @update:amount="selectedAmount = $event || ''"/>
       <div v-if="!selectedCardId">
         <!--        TODO: empty state message-->
       </div>
@@ -33,6 +33,7 @@ import DKBTransaction from './components/DKBTransaction.vue'
 import useStore from "./composites/store";
 import DKBFilter from "./components/DKBFilter.vue";
 import {computed, ref} from "vue";
+import Card from './model/Card'
 
 let {
   selectedCardId,
@@ -53,7 +54,7 @@ const filteredTransactions = computed(() => {
 function selectNewCardId(id: string) {
   selectedCardId.value = id
   console.log("shownCards.vlaue", shownCards.value)
-  shownCards.value.forEach(card => {
+  shownCards.value.forEach((card: Card) => {
     if (card.id === selectedCardId.value) {
       currentTransactionColor.value = card.color
     }

@@ -19,8 +19,7 @@ const props = defineProps({amount: String})
 const amount = computed({
   get: () => props.amount,
   set: (value) => {
-    const convertedAmount = parseInt(value)
-    console.log("cpnmverted", convertedAmount)
+    const convertedAmount = parseInt(value as string)
     if(!isNaN(convertedAmount)){
       invalidAmount.value = false
       emit('update:amount', value);

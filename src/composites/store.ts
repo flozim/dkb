@@ -6,7 +6,7 @@ import Transaction from '../model/Transaction'
 const transactionsByCardId: Record<string, any> = reactive([])
 const selectedCardId = ref('')
 // eslint-ignore next-line
-const shownCards = reactive([])
+const shownCards = reactive<Card[]>([])
 const loadingTransactions = false
 
 async function fetchInitialCards (): Promise<void> {
