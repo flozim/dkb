@@ -3,8 +3,8 @@
     <Variant title="Private light grey">
       <DKBCard :card="privateCard" />
     </Variant>
-    <Variant title="Business light blue">
-      <DKBCard :card="businessCard" />
+    <Variant title="Business light blue selected">
+      <DKBCard :card="businessCard" selected />
     </Variant>
   </Story>
 </template>
